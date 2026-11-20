@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ShelfSignal · The Monday market brief that shows its working</title>
+<meta name="description" content="ShelfSignal is a weekly market brief for grocery-delivery operations analysts: competitor moves, prices, labor and a staffing plan, with the source and math behind every number.">
+<meta property="og:title" content="ShelfSignal · The Monday market brief that shows its working">
+<meta property="og:description" content="Walk into Monday's leadership meeting with a plan you can defend.">
+<meta property="og:image" content="img/app_staffing.jpg">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{
+  --green:#0B6E3F; --green-dark:#08562F; --ink:#14213D; --paper:#FBFCF8;
+  --citrus:#F4B400; --mint:#E7F3EA; --tomato:#D2452D; --muted:#4A5A6E; --line:#D9E2DB;
+  --head:'Bricolage Grotesque',system-ui,sans-serif; --body:'Source Sans 3',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  --max:1160px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 18px/1.6 var(--body);-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--green)}
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--citrus);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--head);line-height:1.1;margin:0 0 .5em;letter-spacing:-.01em}
+h1{font-size:clamp(2.3rem,5.4vw,4rem);font-weight:800}
+h2{font-size:clamp(1.8rem,3.4vw,2.6rem);font-weight:800}
+h3{font-size:1.35rem;font-weight:700}
+p{margin:0 0 1em}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.eyebrow{font:700 .8rem/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:14px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:#fff;padding:10px 14px;z-index:99}
+.skip:focus{left:8px}
+
+/* logo */
+.logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+.logo svg{flex:none}
+.wm{font:800 1.55rem/1 var(--head);letter-spacing:.004em;color:var(--ink);white-space:nowrap}
+.wm .s{color:var(--green)}
+.wm .gap{margin-left:.035em}
+.wm .i{position:relative;display:inline-block}
+.wm .i::before{content:"";position:absolute;left:50%;top:-.02em;width:.2em;height:.2em;background:var(--citrus);transform:translateX(-50%);border-radius:2px}
+.on-dark .wm,.on-dark .wm .s{color:#fff}
+
+/* header */
+header{position:sticky;top:0;z-index:20;background:rgba(251,252,248,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px;gap:20px}
+.nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
+.nav ul a{color:var(--ink);text-decoration:none;font-weight:600}
+.nav ul a:hover{color:var(--green)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:10px;font:700 1rem/1 var(--body);text-decoration:none;border:2px solid transparent;cursor:pointer;transition:background .15s,transform .15s}
+.btn-primary{background:var(--green);color:#fff}
+.btn-primary:hover{background:var(--green-dark)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:#fff}
+.menu{display:none}
+.menu summary{list-style:none;cursor:pointer;width:48px;height:48px;display:grid;place-items:center;border-radius:10px}
+.menu summary::-webkit-details-marker{display:none}
+.menu[open] .panel{position:fixed;inset:72px 0 0 0;background:var(--paper);padding:24px;display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--line)}
+.menu .panel a{font:700 1.4rem var(--head);color:var(--ink);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--line)}
+.menu .panel .btn{margin-top:18px;font-size:1.1rem}
+
+/* hero */
+.hero{padding:72px 0 56px}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hero p.lead{font-size:1.25rem;color:var(--muted);max-width:34em}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap;margin:28px 0 14px}
+.hero small{color:var(--muted);font-size:.95rem}
+.hero-card{position:relative}
+.hero-grid>*,.about-grid>*{min-width:0}
+.hero-card{padding:0 0 24px 0}
+.frame{border-radius:16px;overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:0 24px 60px rgba(20,33,61,.16)}.frame .bar{display:flex;align-items:center;gap:6px;padding:10px 14px;background:#EEF2EF;border-bottom:1px solid var(--line)}.frame .dot{width:10px;height:10px;border-radius:50%;background:#C9D2CC}.frame .url{margin-left:10px;font:500 .78rem var(--mono);color:var(--muted);background:#fff;border-radius:6px;padding:4px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.frame img{display:block;width:100%;height:auto}.shot-cap{font-size:.9rem;color:var(--muted);margin-top:10px}
+.signal-chip{position:absolute;right:-18px;bottom:0;background:var(--citrus);color:var(--ink);border-radius:12px;padding:14px 18px;box-shadow:0 10px 30px rgba(20,33,61,.18);max-width:270px}
+.signal-chip b{display:block;font:800 1.7rem/1 var(--head)}
+.signal-chip span{font-size:.92rem;font-weight:600}
+
+/* proof */
+.proof{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff}
+.proof .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:28px 20px;border-left:1px solid var(--line)}
+.stat:first-child{border-left:0}
+.stat b{display:block;font:800 2.2rem/1 var(--head);color:var(--green)}
+.stat span{color:var(--muted);font-size:.98rem}
+
+/* sections */
+section{padding:88px 0}
+.sec-head{max-width:720px;margin-bottom:44px}
+.sec-head p{color:var(--muted);font-size:1.12rem}
+
+/* products */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s}
+.card:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(20,33,61,.10)}
+.card img{aspect-ratio:3/2;object-fit:cover;width:100%}
+.card .body{padding:24px;display:flex;flex-direction:column;flex:1}
+.card .tag{font:500 .78rem var(--mono);color:var(--green);background:var(--mint);border-radius:6px;padding:4px 8px;align-self:flex-start;margin-bottom:14px}
+.card p{color:var(--muted)}
+.card ul{margin:0 0 18px;padding-left:20px;color:var(--ink)}
+.card .more{margin-top:auto;font-weight:700;text-decoration:none}
+.card .more:hover{text-decoration:underline}
+
+/* how it works */
+.how{background:var(--mint)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;counter-reset:s}
+.step{background:#fff;border-radius:14px;padding:26px;border:1px solid #cfe3d4}
+.step::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:40px;height:40px;border-radius:10px;background:var(--green);color:#fff;font:800 1.2rem var(--head);margin-bottom:16px}
+.step p{margin:0;color:var(--ink)}
+
+/* calculator */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch}
+.calc form{background:#fff;border:1px solid var(--line);border-radius:16px;padding:28px;display:grid;gap:18px}
+.calc label{font-weight:700;display:block;margin-bottom:6px}
+.calc input{width:100%;min-height:48px;border:2px solid #b8c5bd;border-radius:10px;padding:0 14px;font:600 1.1rem var(--body);color:var(--ink);background:var(--paper)}
+.calc .hint{font-size:.9rem;color:var(--muted);margin-top:4px}
+.result{background:var(--ink);color:#fff;border-radius:16px;padding:28px;display:flex;flex-direction:column}
+.result .big{display:flex;gap:28px;flex-wrap:wrap;margin-bottom:18px}
+.result .big div b{display:block;font:800 3.4rem/1 var(--head);color:var(--citrus)}
+.result .big div span{font-weight:600}
+.working{background:var(--mint);color:var(--ink);border-radius:12px;padding:16px 18px;font:500 .92rem/1.7 var(--mono);margin-top:auto}
+.working strong{font-family:var(--body);font-size:1rem;display:block;margin-bottom:4px}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:1fr;gap:36px;align-items:start}
+.about-grid .frame-wrap{order:2}
+.about-grid > div:not(.frame-wrap){max-width:860px}
+.values{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
+.values div{border-left:4px solid var(--green);background:#fff;padding:12px 16px;border-radius:0 10px 10px 0}
+.values b{display:block;font-family:var(--head)}
+.values span{color:var(--muted);font-size:.95rem}
+.founder{display:flex;gap:16px;align-items:center;margin-top:28px;padding-top:24px;border-top:1px solid var(--line)}
+.founder .mono-badge{width:56px;height:56px;border-radius:14px;background:var(--green);display:grid;place-items:center;flex:none}
+.founder p{margin:0}
+
+/* contact */
+.contact{background:var(--green);color:#fff}
+.contact .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.contact h2{color:#fff}
+.contact p{color:#fff;font-size:1.15rem}
+.contact .btn-light{background:#fff;color:var(--green)}
+.contact .btn-light:hover{background:var(--mint)}
+.contact .btn-outline{border-color:#fff;color:#fff}
+.contact .btn-outline:hover{background:#fff;color:var(--green)}
+.contact .box{background:var(--ink);border-radius:16px;padding:28px}
+.contact .box dt{font:700 .78rem var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--citrus);margin-top:16px}
+.contact .box dt:first-child{margin-top:0}
+.contact .box dd{margin:4px 0 0;font-size:1.1rem}
+.contact .box a{color:#fff}
+.faq{margin-top:24px}
+.faq details{border-top:1px solid rgba(255,255,255,.35);padding:14px 0}
+.faq summary{cursor:pointer;font-weight:700;font-size:1.05rem}
+.faq details p{margin:10px 0 0;font-size:1rem}
+
+footer{background:var(--ink);color:#fff;padding:36px 0}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer a{color:#fff}
+footer small{color:#C9D2DE}
+
+.sticky-cta{display:none}
+
+/* responsive */
+@media (max-width:960px){
+  .hero-grid,.about-grid,.calc,.contact .wrap{grid-template-columns:1fr}
+  .cards,.steps{grid-template-columns:1fr}
+  .cards{max-width:560px}
+  .proof .wrap{grid-template-columns:1fr 1fr}
+  .stat:nth-child(3){border-left:0}
+  .stat:nth-child(n+3){border-top:1px solid var(--line)}
+  .signal-chip{position:static;max-width:none;margin-top:14px;box-shadow:none}
+  .hero-card{padding-bottom:0}
+}
+@media (max-width:760px){
+  body{font-size:17px}
+  .nav ul,.nav .btn-primary{display:none}
+  .menu{display:block}
+  .hero{padding:40px 0 36px}
+  .hero .ctas .btn{width:100%}
+  section{padding:60px 0}
+  .values{grid-template-columns:1fr}
+  .sticky-cta{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(251,252,248,.97);border-top:1px solid var(--line)}
+  .sticky-cta .btn{width:100%}
+  footer{padding-bottom:96px}
+  .wrap{padding:0 16px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="sig" viewBox="0 0 64 64"><rect x="10" y="34" width="10" height="14" rx="3" fill="currentColor"/><rect x="25" y="25" width="10" height="23" rx="3" fill="currentColor"/><rect x="40" y="15" width="10" height="33" rx="3" fill="currentColor"/><rect x="4" y="51" width="56" height="5" rx="2.5" fill="currentColor"/><circle cx="45" cy="7.5" r="5" fill="#F4B400"/></symbol>
+</defs></svg>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="ShelfSignal home">
+      <svg width="38" height="38" style="color:#0B6E3F" aria-hidden="true"><use href="#sig"/></svg>
+      <span class="wm"><span class="s">Shelf</span><span class="gap">S</span><span class="i">ı</span>gnal</span>
+    </a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#calculator">Staffing calculator</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-primary" href="https://quickmart-signal.streamlit.app/" target="_blank" rel="noopener">Try the live brief</a>
+    <details class="menu">
+      <summary aria-label="Open menu"><svg width="26" height="20" aria-hidden="true"><rect width="26" height="3" rx="1.5" fill="#14213D"/><rect y="8.5" width="26" height="3" rx="1.5" fill="#14213D"/><rect y="17" width="26" height="3" rx="1.5" fill="#14213D"/></svg></summary>
+      <div class="panel">
+        <a href="#products">Products</a><a href="#how">How it works</a><a href="#calculator">Staffing calculator</a><a href="#about">About</a><a href="#contact">Contact</a>
+        <a class="btn btn-primary" href="https://quickmart-signal.streamlit.app/" target="_blank" rel="noopener">Try the live brief</a>
+      </div>
+    </details>
+  </div>
+</header>
+
+<main id="main">
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">ShelfSignal · for grocery-delivery operations analysts</div>
+      <h1>Walk into Monday’s meeting with a plan you can defend.</h1>
+      <p class="lead">ShelfSignal is the weekly market brief that shows its working: competitor moves, prices, labor and a staffing plan, with the source, the math and the assumptions behind every number.</p>
+      <div class="ctas">
+        <a class="btn btn-primary" href="https://quickmart-signal.streamlit.app/" target="_blank" rel="noopener">Try the live brief →</a>
+        <a class="btn btn-ghost" href="#contact">Request a free 4-week pilot</a>
+      </div>
+      <small>No sign-up needed. The live brief opens in a new tab.</small>
+    </div>
+    <div class="hero-card">
+      <div class="frame"><div class="bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">quickmart-signal.streamlit.app</span></div>
+        <img src="img/app_staffing.jpg" alt="The live ShelfSignal brief: this week's one-line headline, 232 verified records, 8 high-threat alerts, and an hour-by-hour staffing chart with the 09:00 to 13:00 peak highlighted in green" width="1501" height="1005"></div>
+      <div class="signal-chip"><b>09:00–13:00</b><span>peak window: 33% of orders, with the math attached</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="proof" aria-label="Proof points">
+  <div class="wrap">
+    <div class="stat"><b>232</b><span>market records checked in the sample brief</span></div>
+    <div class="stat"><b>5</b><span>data checks before anything is published</span></div>
+    <div class="stat"><b>16</b><span>fields tracked per record, including its source and ID</span></div>
+    <div class="stat"><b>3</b><span>industry testers tried the live app</span></div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Products</div>
+      <h2>One brief. Three ways your team acts on it.</h2>
+      <p>Every Monday, the same verified data feeds three outputs. Each one shows where its numbers came from, so you can defend them in the room.</p>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <img src="img/ai_brief.jpg" alt="A one-page report card with green bar charts on an acrylic stand, beside half a lime and a green fountain pen on a mint set" width="1400" height="933">
+        <div class="body">
+          <span class="tag">01 · weekly</span>
+          <h3>The Monday Market Brief</h3>
+          <p>A one-page summary of what changed in grocery delivery last week: competitor launches, price moves and labor news, ranked by what to act on first.</p>
+          <ul><li>Top 3 actions, each with its evidence</li><li>Competitor alerts from verified sources</li></ul>
+          <a class="more" href="https://quickmart-signal.streamlit.app/" target="_blank" rel="noopener">See this week’s brief →</a>
+        </div>
+      </article>
+      <article class="card">
+        <img src="img/ai_delivery.jpg" alt="A green grocery delivery bag with fresh greens and a baguette next to a wall clock showing ten past ten, on a citrus-yellow set" width="1400" height="933">
+        <div class="body">
+          <span class="tag">02 · planning</span>
+          <h3>The Peak-Hour Staffing Plan</h3>
+          <p>Turns your daily order forecast into riders and pickers for every hour, so the busiest hour never runs short-staffed.</p>
+          <ul><li>Hour-by-hour riders and pickers</li><li>Formula shown under every number</li></ul>
+          <a class="more" href="#calculator">Try the calculator →</a>
+        </div>
+      </article>
+      <article class="card">
+        <img src="img/ai_receipt.jpg" alt="A ribbon of receipt paper looping across a navy set, with a lemon and a green check mark resting on it" width="1400" height="933">
+        <div class="body">
+          <span class="tag">03 · trust</span>
+          <h3>The Source &amp; Quality Gate</h3>
+          <p>Before anything reaches the brief, five checks stop bad data: missing sources, unreadable feeds, duplicate articles, stale dates and invalid values.</p>
+          <ul><li>Bad data stops the brief, loudly</li><li>Every record keeps its ID and source</li></ul>
+          <a class="more" href="#how">How the checks work →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">How it works</div>
+      <h2>Gather. Check. Decide.</h2>
+      <p>The same three steps every week, with nothing hidden in between.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><h3>We gather</h3><p>Grocery-delivery news, competitor pricing and labor data are collected from named public sources every week.</p></div>
+      <div class="step"><h3>We check</h3><p>A quality gate stops the run if a source is missing or a feed is broken, so a wrong number never reaches your meeting.</p></div>
+      <div class="step"><h3>You decide</h3><p>You get ranked actions and a staffing plan. Open “How this was calculated” on any number to see the working.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section id="calculator">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Staffing calculator</div>
+      <h2>How many riders at your busiest hour?</h2>
+      <p>Change the inputs. The answer updates live, and the working is printed underneath, the same way it is in every brief.</p>
+    </div>
+    <div class="calc">
+      <form id="calcForm" onsubmit="return false" aria-describedby="calcNote">
+        <div><label for="orders">Orders per day</label><input id="orders" type="number" min="1" max="100000" value="1200" inputmode="numeric"><div class="hint">Your dark store’s average daily orders.</div></div>
+        <div><label for="share">Share of orders in the busiest hour (%)</label><input id="share" type="number" min="0.5" max="40" step="0.05" value="5.75" inputmode="decimal"><div class="hint">From the demand curve in the brief (10:00 peak).</div></div>
+        <div><label for="rate">Orders one rider delivers per hour</label><input id="rate" type="number" min="0.5" max="20" step="0.5" value="3" inputmode="decimal"><div class="hint">Use your own rate; 3 is a typical 10-minute-delivery figure.</div></div>
+        <div><label for="prate">Orders one picker packs per hour</label><input id="prate" type="number" min="1" max="60" step="1" value="12" inputmode="numeric"></div>
+      </form>
+      <div class="result" aria-live="polite">
+        <div class="big">
+          <div><b id="riders">23</b><span>riders</span></div>
+          <div><b id="pickers">6</b><span>pickers</span></div>
+        </div>
+        <p id="calcNote">at the busiest hour, rounded up so the peak is never short.</p>
+        <div class="working"><strong>How this was calculated</strong><span id="working">peak orders = 1,200 × 5.75% = 69<br>riders = ⌈69 ÷ 3⌉ = 23<br>pickers = ⌈69 ÷ 12⌉ = 6</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="background:#fff;border-top:1px solid var(--line)">
+  <div class="wrap about-grid">
+    <div class="frame-wrap"><div class="frame"><div class="bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">quickmart-signal.streamlit.app</span></div>
+      <img src="img/app_gate.jpg" alt="The live app refusing to create a brief: one of the three sources is missing, so the data did not pass the quality check" width="1501" height="330"></div>
+      <p class="shot-cap">The rule in action: the live app refuses to build a brief when a source is missing.</p></div>
+    <div>
+      <div class="eyebrow">About</div>
+      <h2>Our first pipeline said “success” while a source was silently missing.</h2>
+      <p>ShelfSignal started as a class project: an automated pipeline that collected grocery-delivery news every week. One run reported success, but one of its news feeds had quietly returned nothing. A brief built on that run would have looked confident and been wrong.</p>
+      <p>So the product was rebuilt around one rule: <b>if you can’t see where a number came from, it doesn’t go in the brief.</b> Today every figure carries its source, its record ID and its arithmetic.</p>
+      <div class="values">
+        <div><b>Show the working</b><span>Every number is traceable.</span></div>
+        <div><b>Stop on bad data</b><span>A loud failure beats a quiet error.</span></div>
+        <div><b>Plain words</b><span>Written for the Monday meeting, not for data scientists.</span></div>
+        <div><b>Built with operators</b><span>Tested with people who staff real stores.</span></div>
+      </div>
+      <div class="founder">
+        <div class="mono-badge"><svg width="40" height="40" style="color:#fff" aria-hidden="true"><use href="#sig"/></svg></div>
+        <p><b>Rohit Kumar Pemara</b>, founder. MS in Information Systems at Northeastern University; former Backend Specialist at Amazon, where he maintained product browse nodes and SQL workflows for large catalog datasets.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow" style="color:#fff">Contact</div>
+      <h2>Run a free 4-week pilot with your real orders.</h2>
+      <p>Tell us your role and how many stores you run. You’ll get a sample brief within one business day, then four weekly briefs built on your own numbers.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:8px">
+        <a class="btn btn-light" href="mailto:pemara.r@northeastern.edu?subject=ShelfSignal%20pilot%20request&amp;body=Role%3A%0AStores%3A%0AOrders%20per%20day%3A%0A">Request a pilot by email</a>
+        <a class="btn btn-outline" href="https://quickmart-signal.streamlit.app/" target="_blank" rel="noopener">Try the live brief first</a>
+      </div>
+      <div class="faq">
+        <details><summary>Do I have to share my data?</summary><p>No. The pilot starts with public market data. Your order numbers are only used for the staffing plan, if you choose to add them.</p></details>
+        <details><summary>How is this different from asking ChatGPT?</summary><p>ChatGPT gives you an answer. ShelfSignal gives you the answer, its sources and its math, and refuses to publish when the data is bad.</p></details>
+        <details><summary>What does the pilot cost?</summary><p>Nothing. Four weeks, then you decide.</p></details>
+      </div>
+    </div>
+    <dl class="box">
+      <dt>Email</dt><dd><a href="mailto:pemara.r@northeastern.edu">pemara.r@northeastern.edu</a></dd>
+      <dt>Founder</dt><dd>Rohit Kumar Pemara</dd>
+      <dt>Based in</dt><dd>Boston, MA</dd>
+      <dt>Reply time</dt><dd>Within one business day</dd>
+    </dl>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap on-dark">
+    <a class="logo" href="#top" aria-label="ShelfSignal home"><svg width="30" height="30" style="color:#fff" aria-hidden="true"><use href="#sig"/></svg><span class="wm" style="font-size:1.25rem"><span class="s">Shelf</span><span class="gap">S</span><span class="i">ı</span>gnal</span></a>
+    <small>© 2026 ShelfSignal · The Monday market brief that shows its working. · Photos on this site were generated with AI (Figma AI image generation).</small>
+  </div>
+</footer>
+
+<div class="sticky-cta"><a class="btn btn-primary" href="https://quickmart-signal.streamlit.app/" target="_blank" rel="noopener">Try the live brief →</a></div>
+
+<script>
+(function(){
+  var f=function(id){return parseFloat(document.getElementById(id).value)};
+  var n=function(x){return x.toLocaleString('en-US',{maximumFractionDigits:2})};
+  function calc(){
+    var o=f('orders'),s=f('share'),r=f('rate'),p=f('prate');
+    if(!(o>0&&s>0&&r>0&&p>0)){document.getElementById('working').textContent='Enter numbers above zero to see the working.';return;}
+    var peak=o*s/100, riders=Math.ceil(peak/r-1e-9), pickers=Math.ceil(peak/p-1e-9);
+    document.getElementById('riders').textContent=riders;
+    document.getElementById('pickers').textContent=pickers;
+    document.getElementById('working').innerHTML='peak orders = '+n(o)+' × '+n(s)+'% = '+n(peak)+'<br>riders = ⌈'+n(peak)+' ÷ '+n(r)+'⌉ = '+riders+'<br>pickers = ⌈'+n(peak)+' ÷ '+n(p)+'⌉ = '+pickers;
+  }
+  ['orders','share','rate','prate'].forEach(function(id){document.getElementById(id).addEventListener('input',calc)});
+  document.querySelectorAll('.menu .panel a').forEach(function(a){a.addEventListener('click',function(){a.closest('details').removeAttribute('open')})});
+  calc();
+})();
+</script>
+</body>
+</html>
