@@ -7,7 +7,9 @@
 <meta name="description" content="ShelfSignal is a weekly market brief for grocery-delivery operations analysts: competitor moves, prices, labor and a staffing plan, with the source and math behind every number.">
 <meta property="og:title" content="ShelfSignal · The Monday market brief that shows its working">
 <meta property="og:description" content="Walk into Monday's leadership meeting with a plan you can defend.">
-<meta property="og:image" content="img/app_staffing.jpg">
+<meta property="og:image" content="https://shelfsignal-pearl.vercel.app/img/app_staffing.jpg">
+<meta property="og:url" content="https://shelfsignal-pearl.vercel.app/">
+<link rel="canonical" href="https://shelfsignal-pearl.vercel.app/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -114,7 +116,7 @@ section{padding:88px 0}
 .calc{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch}
 .calc form{background:#fff;border:1px solid var(--line);border-radius:16px;padding:28px;display:grid;gap:18px}
 .calc label{font-weight:700;display:block;margin-bottom:6px}
-.calc input{width:100%;min-height:48px;border:2px solid #b8c5bd;border-radius:10px;padding:0 14px;font:600 1.1rem var(--body);color:var(--ink);background:var(--paper)}
+.calc input{width:100%;min-height:48px;border:2px solid #4A5A6E;border-radius:10px;padding:0 14px;font:600 1.1rem var(--body);color:var(--ink);background:var(--paper)}
 .calc .hint{font-size:.9rem;color:var(--muted);margin-top:4px}
 .result{background:var(--ink);color:#fff;border-radius:16px;padding:28px;display:flex;flex-direction:column}
 .result .big{display:flex;gap:28px;flex-wrap:wrap;margin-bottom:18px}
@@ -214,7 +216,6 @@ footer small{color:#C9D2DE}
       <summary aria-label="Open menu"><svg width="26" height="20" aria-hidden="true"><rect width="26" height="3" rx="1.5" fill="#14213D"/><rect y="8.5" width="26" height="3" rx="1.5" fill="#14213D"/><rect y="17" width="26" height="3" rx="1.5" fill="#14213D"/></svg></summary>
       <div class="panel">
         <a href="#products">Products</a><a href="#how">How it works</a><a href="#calculator">Staffing calculator</a><a href="#about">About</a><a href="#contact">Contact</a>
-        <a class="btn btn-primary" href="https://quickmart-signal.streamlit.app/" target="_blank" rel="noopener">Try the live brief</a>
       </div>
     </details>
   </div>
@@ -236,7 +237,7 @@ footer small{color:#C9D2DE}
     </div>
     <div class="hero-card">
       <div class="frame"><div class="bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">quickmart-signal.streamlit.app</span></div>
-        <img src="img/app_staffing.jpg" alt="The live ShelfSignal brief: this week's one-line headline, 232 verified records, 8 high-threat alerts, and an hour-by-hour staffing chart with the 09:00 to 13:00 peak highlighted in green" width="1501" height="1005"></div>
+        <img src="img/app_staffing.jpg" alt="The live ShelfSignal brief with KPIs and an hourly staffing chart" width="1501" height="1005"></div>
       <div class="signal-chip"><b>09:00–13:00</b><span>peak window: 33% of orders, with the math attached</span></div>
     </div>
   </div>
@@ -261,7 +262,7 @@ footer small{color:#C9D2DE}
     </div>
     <div class="cards">
       <article class="card">
-        <img src="img/ai_brief.jpg" alt="A one-page report card with green bar charts on an acrylic stand, beside half a lime and a green fountain pen on a mint set" width="1400" height="933">
+        <img src="img/ai_brief.jpg" alt="A one-page report with green bar charts beside a lime and a pen" width="1400" height="933">
         <div class="body">
           <span class="tag">01 · weekly</span>
           <h3>The Monday Market Brief</h3>
@@ -271,7 +272,7 @@ footer small{color:#C9D2DE}
         </div>
       </article>
       <article class="card">
-        <img src="img/ai_delivery.jpg" alt="A green grocery delivery bag with fresh greens and a baguette next to a wall clock showing ten past ten, on a citrus-yellow set" width="1400" height="933">
+        <img src="img/ai_delivery.jpg" alt="A grocery delivery bag next to a clock showing ten past ten" width="1400" height="933">
         <div class="body">
           <span class="tag">02 · planning</span>
           <h3>The Peak-Hour Staffing Plan</h3>
@@ -281,7 +282,7 @@ footer small{color:#C9D2DE}
         </div>
       </article>
       <article class="card">
-        <img src="img/ai_receipt.jpg" alt="A ribbon of receipt paper looping across a navy set, with a lemon and a green check mark resting on it" width="1400" height="933">
+        <img src="img/ai_receipt.jpg" alt="A receipt ribbon with a lemon and a green check mark" width="1400" height="933">
         <div class="body">
           <span class="tag">03 · trust</span>
           <h3>The Source &amp; Quality Gate</h3>
@@ -341,7 +342,7 @@ footer small{color:#C9D2DE}
 <section id="about" style="background:#fff;border-top:1px solid var(--line)">
   <div class="wrap about-grid">
     <div class="frame-wrap"><div class="frame"><div class="bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">quickmart-signal.streamlit.app</span></div>
-      <img src="img/app_gate.jpg" alt="The live app refusing to create a brief: one of the three sources is missing, so the data did not pass the quality check" width="1501" height="330"></div>
+      <img src="img/app_gate.jpg" alt="The live app refusing to build a brief because a source is missing" width="1501" height="330"></div>
       <p class="shot-cap">The rule in action: the live app refuses to build a brief when a source is missing.</p></div>
     <div>
       <div class="eyebrow">About</div>
@@ -356,7 +357,7 @@ footer small{color:#C9D2DE}
       </div>
       <div class="founder">
         <div class="mono-badge"><svg width="40" height="40" style="color:#fff" aria-hidden="true"><use href="#sig"/></svg></div>
-        <p><b>Rohit Kumar Pemara</b>, founder. MS in Information Systems at Northeastern University; former Backend Specialist at Amazon, where he maintained product browse nodes and SQL workflows for large catalog datasets.</p>
+        <p><b><a href="https://www.linkedin.com/in/rohit-kumar-pemara/" target="_blank" rel="noopener" style="color:inherit">Rohit Kumar Pemara</a></b>, founder. MS in Information Systems at Northeastern University; former Backend Specialist at Amazon, where he maintained product browse nodes and SQL workflows for large catalog datasets.</p>
       </div>
     </div>
   </div>
@@ -381,6 +382,7 @@ footer small{color:#C9D2DE}
     </div>
     <dl class="box">
       <dt>Email</dt><dd><a href="mailto:pemara.r@northeastern.edu">pemara.r@northeastern.edu</a></dd>
+      <dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/rohit-kumar-pemara/" target="_blank" rel="noopener">linkedin.com/in/rohit-kumar-pemara</a></dd>
       <dt>Founder</dt><dd>Rohit Kumar Pemara</dd>
       <dt>Based in</dt><dd>Boston, MA</dd>
       <dt>Reply time</dt><dd>Within one business day</dd>
@@ -392,7 +394,7 @@ footer small{color:#C9D2DE}
 <footer>
   <div class="wrap on-dark">
     <a class="logo" href="#top" aria-label="ShelfSignal home"><svg width="30" height="30" style="color:#fff" aria-hidden="true"><use href="#sig"/></svg><span class="wm" style="font-size:1.25rem"><span class="s">Shelf</span><span class="gap">S</span><span class="i">ı</span>gnal</span></a>
-    <small>© 2026 ShelfSignal · The Monday market brief that shows its working. · Photos on this site were generated with AI (Figma AI image generation).</small>
+    <small>© 2026 ShelfSignal · The Monday market brief that shows its working. · Product photos generated with AI (Figma AI); app screenshots are real.</small>
   </div>
 </footer>
 
